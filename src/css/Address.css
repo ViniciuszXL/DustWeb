@@ -1,0 +1,40 @@
+/* ADDRESS */
+.address-content {
+    box-shadow: 0 0 5px grey;
+    border-radius: 5px;
+}
+
+.address-content h1 {
+    font-size: 29px;
+    font-weight: 600;
+}
+
+.address-content h2 {
+    color: #676767;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: -2%;
+}
+
+.address-content p {
+    margin: 2% 0;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.address-content-ip {
+    width: 80%;
+    margin: 2.5% 10%;
+    background-color: #3d6def;
+    padding: 2%;
+    border-radius: 5px;
+    box-shadow: 0 0 5px grey;
+    cursor: pointer;
+    margin-bottom: 4%;
+}
+
+.address-content-ip p {
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+}

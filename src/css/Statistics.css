@@ -1,0 +1,65 @@
+/* ESTATISTICAS */
+.estatisticas-block {
+    padding: 0;
+    margin: 3% 0;
+}
+
+.estatisticas-block:first-child {
+    margin-top: 0;
+}
+
+.estatisticas-block:last-child {
+    margin-bottom: 0;
+}
+
+.estatisticas-name {
+    box-shadow: 0 0 5px grey;
+    border-radius: 5px 5px 0 0;
+    background-color: #3d6def;
+}
+  
+.estatisticas-name p {
+    color: white;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: left;
+    font-size: 14px;
+}
+  
+.estatisticas-content {
+    box-shadow: 0 0 5px grey;
+    padding: 0;
+}
+
+.estatisticas-content-item-number {
+    width: 5%;
+    float: left;
+    padding: 0;
+    margin-right: 2%;
+}
+
+.estatisticas-content-item {
+    cursor: pointer;
+    color: black;
+    border-bottom: 1px solid #e0e2e9;
+    padding: 2% 3.5%;
+}
+
+.estatisticas-content-item:last-child {
+    border: 0;
+}
+
+.estatisticas-content-item h3 {
+    float: left;
+    font-weight: 600;
+    font-size: 16px;
+    margin-top: 2%;
+}
+
+.estatisticas-content-item-value {
+    font-size: 16.5px;
+    border-radius: 5px;
+    padding: 2% 0;
+    float: right;
+    text-align: center;
+}
