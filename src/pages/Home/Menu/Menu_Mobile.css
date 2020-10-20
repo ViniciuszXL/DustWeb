@@ -3,14 +3,14 @@
     display: table-cell;
     vertical-align: middle;
     padding: 0;
-  }
+}
   
-  .menu-drop-down {
+.menu-drop-down {
     display: inline-block;
     position: relative;
-  }
+}
   
-  .menu-drop-down-button {
+.menu-drop-down-button {
     background: #3d6def;
     display: inline-block;
     line-height: 40px;
@@ -19,30 +19,30 @@
     border-radius: 4px;
     box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.4);
     cursor: pointer;
-  }
+}
   
-  .menu-drop-down-button i {
+.menu-drop-down-button i {
     float: right;
     font-size: 20px;
     color: #fff;
     margin-top: 10px;
-  }
+}
   
-  .menu-drop-down-menu-item i {
+.menu-drop-down-menu-item i {
     float: right;
     font-size: 17.5px;
     text-align: center;
-  }
+}
   
-  .menu-drop-down-name {
+.menu-drop-down-name {
     font-size: 12px;
     text-transform: uppercase;
     color: #fff;
     font-weight: 800;
     letter-spacing: 2px;
-  }
+}
   
-  .menu-drop-down-menu-box {
+.menu-drop-down-menu-box {
     position: absolute;
     width: 92.5%;
     background-color: #3d6def;
@@ -52,9 +52,9 @@
     visibility: hidden;
     opacity: 0;
     margin-top: 15%!important;
-  }
+}
   
-  .menu-drop-down-menu-box:before {
+.menu-drop-down-menu-box:before {
     content: "";
     background-color: transparent;
     border-right: 8px solid transparent;
@@ -64,18 +64,18 @@
     border-top: 8px solid transparent;
     top: -15px;
     right: 18px;
-  }
+}
   
 .menu-drop-down-menu-box:after {
     content: "";
     background-color: transparent;
-  }
+}
   
 .menu-drop-down-menu {
     margin: 0;
     padding: 0 13px;
     list-style: none;
-  }
+}
   
 .menu-drop-down-menu-item {
     font-size: 15px;
@@ -86,12 +86,11 @@
     cursor: pointer;
     position: relative;
     border-bottom: 1px solid #e0e2e9;
-  }
+}
 
-  
 .menu-drop-down-menu-item:last-of-type {
     border-bottom: 0;
-  }
+}
   
 .menu-drop-down-menu-item:before {
     content: "";
@@ -105,14 +104,14 @@
     display: none;
 }
   
-  .menu-drop-down-menu-item:hover:before {
+.menu-drop-down-menu-item:hover:before {
     display: block;
-  }
+}
   
-  .menu-drop-down-active .menu-drop-down-menu-box {
+.menu-drop-down-active .menu-drop-down-menu-box {
     visibility: visible;
     opacity: 1;
     margin-top: 15px;
-  }
+}
   
   

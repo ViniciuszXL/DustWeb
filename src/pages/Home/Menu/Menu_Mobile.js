@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import "../css/Menu_Mobile.css";
+
+// CSS //
+import "./Menu_Mobile.css";
 
 export default function Menu_Mobile() {
     const [isActive, setActive] = useState("false");

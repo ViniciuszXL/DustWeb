@@ -1,6 +1,7 @@
 import React from 'react';
 
-import '../css/Address.css';
+// CSS //
+import './Address.css';
 
 export default function Address() {
     return (
