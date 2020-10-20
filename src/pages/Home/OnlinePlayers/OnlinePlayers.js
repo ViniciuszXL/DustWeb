@@ -41,7 +41,7 @@ export default function OnlinePlayers() {
                 <div className="conteudo online-players-content">
                     <LineChart width={285} height={220} data={data}
                         margin={{ top: 18, right: 0, left: 0, bottom: 10 }}>
-                        <CartesianGrid strokeDasharray="3 3" />
+                        <CartesianGrid strokeDasharray="2 2" />
                         <XAxis dataKey="name" />
                         <YAxis />
                         <Tooltip />

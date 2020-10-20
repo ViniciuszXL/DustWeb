@@ -5,10 +5,7 @@ import "./Menu_Mobile.css";
 
 export default function Menu_Mobile() {
     const [isActive, setActive] = useState("false");
-
-    const handleToggle = () => {
-        setActive(!isActive);
-    };
+    const handleToggle = () => { setActive(!isActive); };
 
     return( 
         <div className={"conteudo menu-drop-down" + (!isActive ? " menu-drop-down-active" : "")}>
