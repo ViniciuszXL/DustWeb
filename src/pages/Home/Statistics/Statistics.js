@@ -11,9 +11,9 @@ export default function Statistics() {
     const [record, setRecord] = useState([]);
     const [registred, setRegistred] = useState();
 
-    const coinsTop = Connection.getParamentsURL('top_players?type=coins&limit=5');
-    const recordURL = Connection.getParamentsURL('onlinePlayers?type=peakOfPlayerRecord');
-    const registredURL = Connection.getParamentsURL('user_players?type=registred');
+    var coinsTop = Connection.getParamentsURL('top_players?type=coins&limit=5');
+    var recordURL = Connection.getParamentsURL('onlinePlayers?type=peakOfPlayerRecord');
+    var registredURL = Connection.getParamentsURL('user_players?type=registred');
 
     useEffect(() => {
       Axios.get(coinsTop).then(response => setData(response.data));
@@ -44,7 +44,7 @@ export default function Statistics() {
               </div>
 
               <div className="conteudo estatisticas-block">
-                  <div className="conteudo estatisticas-name"> <p>ESTATÍSTICAS (TOP 5 COINS)</p> </div>
+                  <div className="conteudo estatisticas-name"> <p>ESTATÍSTICAS GERAIS (TOP 5 COINS)</p> </div>
                   <div className="conteudo estatisticas-content">
                       {
                         tops.map(top => (

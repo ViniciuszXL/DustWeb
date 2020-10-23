@@ -1,0 +1,27 @@
+.menu {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    overflow: auto;
+}
+
+/* CONTENT */
+.menu-content {
+    background-color: #3d6def;
+    box-shadow: 0 0 5px grey;
+    border-radius: 10px;
+    font-size: 20px;
+    min-width: 26.5%;
+    color: white;
+    margin: 0 2%;
+    text-decoration: none;
+    transition: all .6s;
+}
+
+.menu-content:hover {
+    box-shadow: 0 0 8px black;
+}
+
+.menu-content:first-child {
+    margin-left: 0;
+}

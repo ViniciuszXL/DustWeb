@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// Page //
-import Home from './pages/Home/Home';
+// App //
+import App from './App';
 
 // Service Worker //
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
     <React.StrictMode>
-        <Home />
+        <App />
     </React.StrictMode>,
 
     document.getElementById('root')
