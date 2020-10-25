@@ -26,6 +26,11 @@ export default function Menu() {
                 <p>Bans</p>
             </a>
 
+            <a href="mutes" className="conteudo menu-content">
+                <i className="fas fa-volume-mute"></i>
+                <p>Mutes</p>
+            </a>
+
             <a href="forms" className="conteudo menu-content">
                 <i className="far fa-clipboard"></i>
                 <p>Forms</p>

@@ -24,6 +24,7 @@ export default function Footer() {
                         <li><a href="staff">Staff</a></li>
                         <li><a href="ranks">Ranking</a></li>
                         <li><a href="bans">Banimentos</a></li>
+                        <li><a href="mutes">Mutes</a></li>
                         <li><a href="forms">Formulários</a></li>
                     </ul>
                 </div>

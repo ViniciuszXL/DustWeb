@@ -8,14 +8,14 @@ import './List.css';
 export default function List() {
     const [bans, setBans] = useState([]);
     useEffect(() => {
-        Axios.get(Connection.getParamentsURL('punishments?type=1&limit=20'))
+        Axios.get(Connection.getParamentsURL('punishments?type=0&limit=20'))
             .then(res => setBans(res.data));
     }, []);
 
     return (
         <div className="conteudo bans-table">
             <div className="conteudo bans-table-title">
-                <h1>BANIMENTOS</h1>
+                <h1>MUTES</h1>
             </div>
 
             <div className="conteudo bans-table-content">
