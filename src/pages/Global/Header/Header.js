@@ -7,7 +7,7 @@ import '../../../css/App.css';
 export default function Header() {
     return (
         <div className="conteudo topo">
-            <img src={logo} />
+            <img src={logo} alt="Dust logo" />
         </div>
     );
 }

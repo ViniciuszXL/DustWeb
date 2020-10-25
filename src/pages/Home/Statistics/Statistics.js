@@ -11,14 +11,15 @@ export default function Statistics() {
     const [record, setRecord] = useState([]);
     const [registred, setRegistred] = useState();
 
-    var coinsTop = Connection.getParamentsURL('top_players?type=coins&limit=5');
-    var recordURL = Connection.getParamentsURL('onlinePlayers?type=peakOfPlayerRecord');
-    var registredURL = Connection.getParamentsURL('user_players?type=registred');
-
     useEffect(() => {
-      Axios.get(coinsTop).then(response => setData(response.data));
-      Axios.get(recordURL).then(rec => setRecord(rec.data));
-      Axios.get(registredURL).then(res => setRegistred(res.data.registred));
+        Axios.get(Connection.getParamentsURL('top_players?type=coins&limit=5'))
+            .then(response => setData(response.data));
+
+        Axios.get(Connection.getParamentsURL('onlinePlayers?type=peakOfPlayerRecord'))
+            .then(rec => setRecord(rec.data));
+
+        Axios.get(Connection.getParamentsURL('user_players?type=registred'))
+            .then(res => setRegistred(res.data.registred));
     }, []);
   
     return (

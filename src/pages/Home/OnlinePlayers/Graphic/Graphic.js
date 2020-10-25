@@ -6,11 +6,14 @@ import { LineChart, Line, YAxis, XAxis, CartesianGrid, Tooltip, Legend } from 'r
 export default function Graphic() {
 
     const [data, setData] = useState([]);
-    const peakOfPlayer = Connection.getParamentsURL('onlinePlayers?type=peakOfPlayer');
 
     useEffect(() => {
+        const peakOfPlayer = Connection.getParamentsURL('onlinePlayers?type=peakOfPlayer');
+
         Axios.get(peakOfPlayer).then(peak => setData(peak.data));
-        const interval = setInterval(() => Axios.get(peakOfPlayer).then(peak => setData(peak.data)), 6000);
+        const interval = setInterval(() => {
+            Axios.get(peakOfPlayer).then(peak => setData(peak.data));
+        }, 6000);
         return () => clearInterval(interval);
     }, []);
 

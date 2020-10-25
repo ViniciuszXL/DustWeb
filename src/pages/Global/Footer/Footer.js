@@ -11,7 +11,7 @@ export default function Footer() {
         <footer className="conteudo footer-content">
             <div className="conteudo footer-content-item">
                     <div className="conteudo footer-content-item-img">
-                        <img src={logo} />
+                        <img src={logo} alt="Dust logo" />
                     </div>
 
                     <p>DustMC &copy;</p>
@@ -20,7 +20,7 @@ export default function Footer() {
 
                 <div className="conteudo footer-content-item">
                     <ul>
-                        <li><a href="home">Início</a></li>
+                        <li><a href="/">Início</a></li>
                         <li><a href="staff">Staff</a></li>
                         <li><a href="ranks">Ranking</a></li>
                         <li><a href="bans">Banimentos</a></li>
