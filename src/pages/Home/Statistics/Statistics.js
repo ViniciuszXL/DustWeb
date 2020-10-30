@@ -31,7 +31,9 @@ export default function Statistics() {
                           <h3>Recorde de players: </h3>
                           {
                             record.map(rec => (
-                              <p className="estatisticas-content-item-value">{rec.pico} ({rec.dateFormat})</p>
+                                <p className="estatisticas-content-item-value" key={ rec.dateFormat }>
+                                    {rec.pico} ({rec.dateFormat})
+                                </p>
                             ))
                           }
                       </div>
@@ -49,7 +51,7 @@ export default function Statistics() {
                   <div className="conteudo estatisticas-content">
                       {
                         tops.map(top => (
-                            <div className="conteudo estatisticas-content-item">
+                            <div className="conteudo estatisticas-content-item" key={ top.name }>
                                 <h3>{top.name}</h3>
                                 <p className="estatisticas-content-item-value">
                                     <NumberFormat value={top.coins} displayType={'text'} thousandSeparator={true} />

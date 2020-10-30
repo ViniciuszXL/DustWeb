@@ -17,6 +17,11 @@
     padding: 0;
 }
 
+.bans-table-gif img {
+    width: 50%;
+    padding: 10%;
+}
+
 /* TOP */
 .bans-table-top {
     padding: 0;
@@ -117,4 +122,26 @@
 .bans-content-expiry, .bans-item-expiry {
     min-width: 32%;
     text-align: center;
+}
+
+/* FOOTER */
+.bans-table-footer {
+    background-color: #3d6def;
+    border-radius: 0 0 5px 5px;
+}
+
+.bans-table-page {
+    padding: 2% 0;
+}
+
+.bans-table-page button {
+    padding: 2%;
+    background: none;
+    border: 1px solid white;
+    margin: 0 2%;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
 }

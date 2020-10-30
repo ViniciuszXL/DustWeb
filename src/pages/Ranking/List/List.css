@@ -1,0 +1,30 @@
+/* TABLE */
+.ranking-table {
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 0 5px grey;
+    width: 95%;
+    float: left;
+    padding: 0;
+    margin: 2.5%;
+}
+
+/* HEADER */
+.ranking-table-header {
+    padding: 0;
+    border-radius: 5px 5px 0 0;
+}
+
+/* MENU */
+.ranking-table-title {
+    background-color: #3d6def;
+    border-radius: 5px 5px 0 0;
+    text-align: left;
+}
+
+.ranking-table-title h1 {
+    font-weight: 700;
+    font-size: 14px;
+    color: white;
+}
+
+/* CONTENT */

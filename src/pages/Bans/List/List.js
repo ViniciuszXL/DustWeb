@@ -2,20 +2,61 @@ import Axios from 'axios';
 import Connection from '../../../backend/Connection';
 import React, { useState, useEffect } from 'react';
 
+// Image //
+import load from '../../../assets/gifs/carregamento.gif';
+
 // CSS //
 import './List.css';
 
 export default function List() {
-    const [bans, setBans] = useState([]);
+    const schemaZero = Connection.getParamentsURL('punishments?schema=0&type=1&page=');
+    const schemaOne = Connection.getParamentsURL('punishments?schema=1&type=1');
+    var [bans, setBans] = useState([]);
+
+    const page = parseInt(localStorage.getItem('@dust-web/page-bans'));
+    const maxPage = parseInt(localStorage.getItem('@dust-web/maxPage-bans'));
+
     useEffect(() => {
-        Axios.get(Connection.getParamentsURL('punishments?type=1&limit=20'))
-            .then(res => setBans(res.data));
+        localStorage.removeItem('@dust-web/page-bans');
+        localStorage.removeItem('@dust-web/maxPage-bans');
+
+        localStorage.setItem('@dust-web/page-bans', 1);
+        Axios.get(schemaOne).then(res => {
+            localStorage.setItem('@dust-web/maxPage-bans', res.data.maxPage);
+        });
+
+        var interval = setInterval(() => {
+            Axios.get(schemaZero + page).then(res => {
+                setBans(res.data);
+                document.getElementById('bans-table-gif').remove();
+                clearInterval(interval);
+            }); 
+        }, 3500);
     }, []);
+
+    function previousPage(event) {
+        event.preventDefault();
+        if ((page - 1) < 1)
+            return;
+        
+        localStorage.setItem('@dust-web/page-bans', page - 1);
+        Axios.get(schemaZero + (page - 1))
+            .then(res => setBans(res.data)); 
+    }
+
+    function nextPage(event) {
+        event.preventDefault();
+        if ((page + 1) > maxPage) 
+            return;
+        
+        localStorage.setItem('@dust-web/page-bans', page + 1);
+        Axios.get(schemaZero + (page + 1)).then(res => setBans(res.data)); 
+    }
 
     return (
         <div className="conteudo bans-table">
             <div className="conteudo bans-table-title">
-                <h1>BANIMENTOS</h1>
+                <h1>BANIMENTOS ({ page }/{ maxPage })</h1>
             </div>
 
             <div className="conteudo bans-table-content">
@@ -28,9 +69,13 @@ export default function List() {
                     <div className="conteudo bans-table-top-item bans-item-expiry"> <p>Expira</p> </div>
                 </div> 
 
+                <div className="conteudo bans-table-gif" id="bans-table-gif">
+                    <img src={ load }/>
+                </div>
+
                 {
                     bans.map(ban => (
-                        <div className="conteudo bans-table-content-items">
+                        <div className="conteudo bans-table-content-items" key={ ban.key }>
                             <div className="conteudo bans-table-content-item">
                                 <a href={ '/player/' + ban.punished } alt={ ban.punished } className="conteudo bans-table-content-username">
                                     <img src={ ban.punishedUrl } alt={ ban.punished } />
@@ -58,6 +103,14 @@ export default function List() {
                         </div>
                     ))
                 }
+                
+            </div>
+
+            <div className="conteudo bans-table-footer">
+                <div className="conteudo bans-table-page">
+                    <button onClick={ previousPage }> Página Anterior </button>
+                    <button onClick={ nextPage }> Próxima Página </button>
+                </div>
             </div>
         </div>
     );

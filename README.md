@@ -13,6 +13,7 @@
 * React
 * React-Dom
 * React-Number-Format
+* React-Router-Dom
 * ReCharts
 
 # Dependências necessárias para inicializar o projeto
