@@ -1,6 +1,6 @@
 import Axios from 'axios';
-import Connection from '../../../backend/Connection';
 import React, { useState, useEffect } from 'react';
+import Utilitaries from '../../../backend/Utilitaries';
 
 // Image //
 import load from '../../../assets/gifs/carregamento.gif';
@@ -9,56 +9,80 @@ import load from '../../../assets/gifs/carregamento.gif';
 import './List.css';
 
 export default function List() {
-    const schemaZero = Connection.getParamentsURL('punishments?schema=0&type=0&page=');
-    const schemaOne = Connection.getParamentsURL('punishments?schema=1&type=0');
     var [mutes, setMutes] = useState([]);
 
-    const page = parseInt(localStorage.getItem('@dust-web/page-mute'));
-    const maxPage = parseInt(localStorage.getItem('@dust-web/maxPage-mute'));
-
     useEffect(() => {
-        localStorage.removeItem('@dust-web/page-mute');
-        localStorage.removeItem('@dust-web/maxPage-mute');
+        Utilitaries.removeItem('page-mute');
+        Utilitaries.removeItem('maxPage-mute');
 
-        localStorage.setItem('@dust-web/page-mute', 1);
-        Axios.get(schemaOne).then(res => {
-            localStorage.setItem('@dust-web/maxPage-mute', res.data.maxPage);
+        Axios.get(Utilitaries.getPunishments(1, 0, 1)).then(res => {
+            var data = res.data;
+            if (data === undefined)
+                return;
+            
+            Utilitaries.setStorage('page-mute', 1);
+            Utilitaries.setStorage('maxPage-mute', data.maxPage);
         });
 
         var interval = setInterval(() => {
-            Axios.get(schemaZero + page).then(res => {
-                setMutes(res.data);
-                document.getElementById('mutes-table-gif').remove();
-                clearInterval(interval);
+            Utilitaries.modifyHTML('mutes-table-title', 
+                '<h1>MUTES (1/' + Utilitaries.getStorage('maxPage-mute') + ') </h1>');
+
+            Axios.get(Utilitaries.getPunishments(0, 0, 1)).then(res => {
+                var data = res.data;
+                if (data === undefined)
+                    return;
+                
+                try {
+                    setMutes(data);
+                } finally {
+                    Utilitaries.removeDiv('mutes-table-gif');
+                    clearInterval(interval);
+                }
             }); 
-        }, 3500);
+        }, 2500);
     }, []);
 
     function previousPage(event) {
         event.preventDefault();
+        var page = Utilitaries.getStorage('page-mute');
+        var maxPage = Utilitaries.getStorage('maxPage-mute');
         if ((page - 1) < 1)
             return;
         
-        localStorage.setItem('@dust-web/page-mute', page - 1);
-        Axios.get(schemaZero + (page - 1)).then(res => setMutes(res.data)); 
+        Utilitaries.setStorage('page-mute', (page - 1));
+        Axios.get(Utilitaries.getPunishments(0, 0, (page - 1))).then(res => {
+            var data = res.data;
+            if (data === undefined)
+                return;
+            
+            setMutes(data);
+            Utilitaries.modifyHTML('mutes-table-title', '<h1>MUTES ('+(page-1)+'/'+maxPage+') </h1>');
+        }); 
     }
 
     function nextPage(event) {
         event.preventDefault();
-        if (maxPage === NaN)
-            Axios.get(schemaOne).then(res => localStorage.setItem('@dust-web/maxPage-mute', res.data.maxPage));
-
+        var page = Utilitaries.getStorage('page-mute');
+        var maxPage = Utilitaries.getStorage('maxPage-mute');
         if ((page + 1) > maxPage) 
             return;
         
-        localStorage.setItem('@dust-web/page-mute', page + 1);
-        Axios.get(schemaZero + (page + 1)).then(res => setMutes(res.data)); 
+        Utilitaries.setStorage('page-mute', (page + 1));
+        Axios.get(Utilitaries.getPunishments(0, 0, (page + 1))).then(res => {
+            var data = res.data;
+            if (data === undefined)
+                return;
+            
+            setMutes(data);
+            Utilitaries.modifyHTML('mutes-table-title', '<h1>MUTES ('+(page+1)+'/'+maxPage+') </h1>');
+        }); 
     }
 
     return (
         <div className="conteudo mutes-table">
-            <div className="conteudo mutes-table-title">
-                <h1>MUTES ({ page }/{ maxPage })</h1>
+            <div className="conteudo mutes-table-title" id="mutes-table-title">
+                <h1>MUTES</h1>
             </div>
 
             <div className="conteudo mutes-table-content">
@@ -72,7 +96,7 @@ export default function List() {
                 </div> 
 
                 <div className="conteudo mutes-table-gif" id="mutes-table-gif">
-                    <img src={ load }/>
+                    <img src={ load } alt="Loading" />
                 </div>
 
                 {

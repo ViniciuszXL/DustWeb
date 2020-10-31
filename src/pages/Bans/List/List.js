@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import Connection from '../../../backend/Connection';
+import Utilitaries from '../../../backend/Utilitaries';
 import React, { useState, useEffect } from 'react';
 
 // Image //
@@ -9,54 +9,80 @@ import load from '../../../assets/gifs/carregamento.gif';
 import './List.css';
 
 export default function List() {
-    const schemaZero = Connection.getParamentsURL('punishments?schema=0&type=1&page=');
-    const schemaOne = Connection.getParamentsURL('punishments?schema=1&type=1');
+    
     var [bans, setBans] = useState([]);
 
-    const page = parseInt(localStorage.getItem('@dust-web/page-bans'));
-    const maxPage = parseInt(localStorage.getItem('@dust-web/maxPage-bans'));
-
     useEffect(() => {
-        localStorage.removeItem('@dust-web/page-bans');
-        localStorage.removeItem('@dust-web/maxPage-bans');
+        Utilitaries.removeItem('page-bans');
+        Utilitaries.removeItem('maxPage-bans');
 
-        localStorage.setItem('@dust-web/page-bans', 1);
-        Axios.get(schemaOne).then(res => {
-            localStorage.setItem('@dust-web/maxPage-bans', res.data.maxPage);
+        Axios.get(Utilitaries.getPunishments(1, 1, 1)).then(res => {
+            var data = res.data;
+            if (data === undefined)
+                return;
+            Utilitaries.setStorage('page-bans', 1);
+            Utilitaries.setStorage('maxPage-bans', data.maxPage);   
         });
-
+        
         var interval = setInterval(() => {
-            Axios.get(schemaZero + page).then(res => {
-                setBans(res.data);
-                document.getElementById('bans-table-gif').remove();
-                clearInterval(interval);
+            Utilitaries.modifyHTML('bans-table-title', 
+                '<h1>BANIMENTOS (1/' + Utilitaries.getStorage('maxPage-bans') + ') </h1>');
+
+            Axios.get(Utilitaries.getPunishments(0, 1, 1)).then(res => {
+                var data = res.data;
+                if (data === undefined)
+                    return;
+
+                try {
+                    setBans(data);
+                } finally {
+                    Utilitaries.removeDiv('bans-table-gif');
+                    clearInterval(interval);
+                }
             }); 
-        }, 3500);
+        }, 2500);
     }, []);
 
     function previousPage(event) {
         event.preventDefault();
+        var page = parseInt(Utilitaries.getStorage('page-bans'));
+        var maxPage = parseInt(Utilitaries.getStorage('maxPage-bans'));
         if ((page - 1) < 1)
             return;
         
-        localStorage.setItem('@dust-web/page-bans', page - 1);
-        Axios.get(schemaZero + (page - 1))
-            .then(res => setBans(res.data)); 
+        Utilitaries.setStorage('page-bans', (page - 1));
+        Axios.get(Utilitaries.getPunishments(0, 1, (page - 1))).then(res => {
+            var data = res.data;
+            if (data === undefined)
+                return;
+
+            setBans(res.data);
+            Utilitaries.modifyHTML('bans-table-title', '<h1>BANIMENTOS ('+(page-1)+'/'+maxPage+') </h1>');
+        });
     }
 
     function nextPage(event) {
         event.preventDefault();
+        var page = parseInt(Utilitaries.getStorage('page-bans'));
+        var maxPage = parseInt(Utilitaries.getStorage('maxPage-bans'));
         if ((page + 1) > maxPage) 
             return;
         
-        localStorage.setItem('@dust-web/page-bans', page + 1);
-        Axios.get(schemaZero + (page + 1)).then(res => setBans(res.data)); 
+        Utilitaries.setStorage('page-bans', (page + 1));
+        Axios.get(Utilitaries.getPunishments(0, 1, (page + 1))).then(res => {
+            var data = res.data;
+            if (data === undefined)
+                return;
+            
+            setBans(res.data);
+            Utilitaries.modifyHTML('bans-table-title', '<h1>BANIMENTOS ('+(page+1)+'/'+maxPage+') </h1>');
+        }); 
     }
 
     return (
         <div className="conteudo bans-table">
-            <div className="conteudo bans-table-title">
-                <h1>BANIMENTOS ({ page }/{ maxPage })</h1>
+            <div className="conteudo bans-table-title" id="bans-table-title">
+                <h1>BANIMENTOS</h1>
             </div>
 
             <div className="conteudo bans-table-content">
@@ -70,7 +96,7 @@ export default function List() {
                 </div> 
 
                 <div className="conteudo bans-table-gif" id="bans-table-gif">
-                    <img src={ load }/>
+                    <img src={ load } alt="Loading" />
                 </div>
 
                 {
